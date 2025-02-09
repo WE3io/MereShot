@@ -1,3 +1,13 @@
+---
+interface Props {
+	title: string;
+	description?: string;
+}
+
+const { title, description = "MereShot - Professional Photography Portfolio" } =
+	Astro.props;
+---
+
 <!doctype html>
 <html lang="en">
 	<head>
@@ -5,18 +15,184 @@
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<meta name="og:title" content={title} />
+		<meta name="og:description" content={description} />
+		<meta name="twitter:card" content="summary_large_image" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+			rel="stylesheet"
+		/>
 	</head>
 	<body>
 		<slot />
 	</body>
 </html>
 
-<style>
-	html,
+<style is:global>
+	:root {
+		/* Primary colors */
+		--accent: #3b82f6;
+		--accent-light: #60a5fa;
+		--accent-dark: #1d4ed8;
+
+		/* Neutral colors */
+		--white: #ffffff;
+		--gray-50: #f8fafc;
+		--gray-100: #f1f5f9;
+		--gray-200: #e2e8f0;
+		--gray-300: #cbd5e1;
+		--gray-400: #94a3b8;
+		--gray-500: #64748b;
+		--gray-600: #475569;
+		--gray-700: #334155;
+		--gray-800: #1e293b;
+		--gray-900: #0f172a;
+
+		/* Semantic colors */
+		--background: var(--gray-50);
+		--text: var(--gray-800);
+		--text-light: var(--gray-600);
+		--border: var(--gray-200);
+
+		/* Dimensions */
+		--max-width: 1200px;
+		--nav-height: 4rem;
+	}
+
+	html {
+		font-family: "Inter", system-ui, sans-serif;
+		background-color: var(--background);
+		color: var(--text);
+		scroll-behavior: smooth;
+	}
+
+	/* Subtle grid background pattern */
 	body {
 		margin: 0;
+		padding: 0;
+		min-height: 100vh;
+		line-height: 1.6;
+		background-image: linear-gradient(
+				to right,
+				var(--gray-200) 1px,
+				transparent 1px
+			),
+			linear-gradient(to bottom, var(--gray-200) 1px, transparent 1px);
+		background-size: 50px 50px;
+		background-position: center;
+		background-attachment: fixed;
+	}
+
+	body::before {
+		content: "";
+		position: fixed;
+		top: 0;
+		left: 0;
 		width: 100%;
 		height: 100%;
+		background: var(--background);
+		opacity: 0.97;
+		z-index: -1;
+	}
+
+	img {
+		max-width: 100%;
+		height: auto;
+		display: block;
+	}
+
+	code {
+		font-family:
+			Menlo,
+			Monaco,
+			Lucida Console,
+			Liberation Mono,
+			DejaVu Sans Mono,
+			Bitstream Vera Sans Mono,
+			Courier New,
+			monospace;
+	}
+
+	/* Enhanced button styles */
+	.button {
+		display: inline-block;
+		padding: 0.8rem 1.5rem;
+		border-radius: 0.5rem;
+		font-weight: 500;
+		text-decoration: none;
+		transition: all 0.2s ease;
+		border: 2px solid transparent;
+	}
+
+	.button.primary {
+		background: var(--accent);
+		color: var(--white);
+	}
+
+	.button.primary:hover {
+		background: var(--accent-dark);
+		transform: translateY(-2px);
+		box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25);
+	}
+
+	.button.secondary {
+		background: var(--gray-100);
+		color: var(--gray-800);
+		border: 2px solid var(--gray-200);
+	}
+
+	.button.secondary:hover {
+		background: var(--white);
+		border-color: var(--accent);
+		color: var(--accent);
+		transform: translateY(-2px);
+		box-shadow: 0 4px 12px rgba(203, 213, 225, 0.4);
+	}
+
+	/* Enhanced typography */
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		color: var(--gray-900);
+		line-height: 1.2;
+		margin: 2rem 0 1rem;
+	}
+
+	h1 {
+		font-size: 2.5rem;
+		font-weight: 700;
+		letter-spacing: -0.025em;
+	}
+
+	h2 {
+		font-size: 2rem;
+		font-weight: 600;
+	}
+
+	h3 {
+		font-size: 1.5rem;
+		font-weight: 600;
+	}
+
+	p {
+		color: var(--text-light);
+		margin-bottom: 1.5rem;
+	}
+
+	a {
+		color: var(--accent);
+		text-decoration: none;
+		transition: color 0.2s ease;
+	}
+
+	a:hover {
+		color: var(--accent-dark);
 	}
 </style>
